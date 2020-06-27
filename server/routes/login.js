@@ -67,7 +67,7 @@ async function verify(token) {
 }
 
 app.post('/google', async(req, res) => {
-  const tok© en = req.body.idtoken
+  const token = req.body.idtoken
 
   const googleUser = await verify(token)
     .catch(err => {
