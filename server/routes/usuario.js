@@ -65,7 +65,7 @@ app.put('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
   let id = req.params.id;
   let body = _.pick(req.body, ['nombre', 'email', 'img', 'role', 'estado'])
 
-  Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query' }, (err, usuarioDB) => {
+  Usuario.findByIdAndUpdate(id, body, { new: true, runValidators: true, context: 'query', useFindAndModify: false }, (err, usuarioDB) => {
     if (err) {
       return res.status(400).json({
         ok: false,
@@ -83,7 +83,7 @@ app.put('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
 app.delete('/usuario/:id', [verificaToken, verificaAdminRole], (req, res) => {
   let id = req.params.id
 
-  Usuario.findByIdAndUpdate(id, { estado: false }, { new: true }, (err, usuarioDesactivado) => {
+  Usuario.findByIdAndUpdate(id, { estado: false }, { new: true, useFindAndModify: false }, (err, usuarioDesactivado) => {
     if (err) {
       return res.status(400).json({
         ok: false,
